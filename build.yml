@@ -1,0 +1,22 @@
+name: Build HeavenX IPA
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Build IPA
+      uses: yukiarrr/ios-build-action@v1
+      with:
+        project-path: HeavenX/HeavenX.xcodeproj
+        export-method: development
+        p12-base64: ${{ secrets.P12_BASE64 }}
+        mobileprovision-base64: ${{ secrets.MOBILEPROVISION_BASE64 }}
+        code-signing-identity: "iPhone Developer: Your Name (TEAMID)"
+        team-id: "TEAMID"
